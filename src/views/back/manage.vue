@@ -1,8 +1,6 @@
 <template>
     <div class="container">
-        <div class="sideNav">
-            <sideNav />
-        </div>
+        <sideNav />
         <div class="router-view">
             <headTop />
             <el-main>
@@ -28,9 +26,7 @@ export default {
 .container {
     display: flex;
 }
-.sideNav {
-    width: 250px;
-}
+
 .router-view {
     flex: 1;
     box-sizing: border-box;

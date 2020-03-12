@@ -198,6 +198,7 @@ export default {
     margin: 40px 0;
 }
 .title {
+    text-align: center;
     color: #000;
 }
 .title span {

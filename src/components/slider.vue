@@ -3,7 +3,7 @@
         <div class="slider-logo"></div>
         <div class="title">陈永辉</div>
         <div class="slider-content"></div>
-        <div class="tags-title">标签</div>
+        <div class="tags-title">技能点</div>
         <div class="tags">
             <div class="tags-item" v-for="(item,index) in tagsList" :key="index">{{item}}</div>
         </div>
@@ -19,10 +19,13 @@ export default {
                 "vue-router",
                 "Vue.js",
                 "React.js",
-                "关于博主",
+                "微信小程序",
                 "node.js",
+                "Websocket",
                 "JavaScript",
-                "Vuex"
+                "Vuex",
+                "Antd Design",
+                "Element-UI"
             ]
         };
     },

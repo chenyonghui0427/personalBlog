@@ -1,8 +1,8 @@
 <template>
     <div class="head">
         <!-- <div> -->
-        <div class="trigger">
-            <a-icon type="menu-fold" />
+        <div class="trigger" @click="handleCollapsed">
+            <a-icon :type="collapsed?'menu-unfold':'menu-fold'" />
         </div>
         <div style="flex:1;"></div>
         <div class="head-bar">
@@ -15,23 +15,26 @@
 export default {
     data() {
         return {
-            current: ["mail"],
-            openKeys: ["sub1"],
             collapsed: false
         };
     },
     methods: {
-        handleClick(e) {
-            console.log("click", e);
-            this.$router.push(e.key);
-        },
-        titleClick(e) {
-            console.log("titleClick", e);
+        handleCollapsed() {
+            let collapsed = this.collapsed;
+            this.$store.commit("CHANGE_MENU_STATUS", {
+                collapsed: !collapsed
+            });
+            !this.collapsed;
+        }
+    },
+    computed: {
+        collapsedData() {
+            return this.$store.state.collapsed;
         }
     },
     watch: {
-        openKeys(val) {
-            console.log("openKeys", val);
+        collapsedData(newValue, oldValue) {
+            this.collapsed = newValue;
         }
     }
 };
@@ -43,7 +46,6 @@ export default {
     display: flex;
     align-items: center;
     box-sizing: border-box;
-
     height: 60px;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }

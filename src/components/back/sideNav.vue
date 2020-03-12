@@ -1,7 +1,7 @@
 <template>
-    <div class="side-nav">
+    <div class="side-nav" :style="collapsed?'width:90px':'width:250px'">
         <div class="logo">
-            <h1>博客后台</h1>
+            <h1>博客后台{{collapsed}}</h1>
         </div>
         <a-menu
             :defaultSelectedKeys="['1']"
@@ -19,14 +19,14 @@
                 <a-menu-item key="/manage/article">文章列表</a-menu-item>
                 <a-menu-item key="/manage/addArticle">添加文章</a-menu-item>
             </a-sub-menu>
-            <a-sub-menu key="sub3">
+            <a-sub-menu key="sub2">
                 <span slot="title">
                     <a-icon type="appstore" />
                     <span>评论管理</span>
                 </span>
                 <a-menu-item key="/manage/comments">评论列表</a-menu-item>
             </a-sub-menu>
-            <a-sub-menu key="sub2">
+            <a-sub-menu key="sub3">
                 <span slot="title">
                     <a-icon type="appstore" />
                     <span>人生历程</span>
@@ -34,7 +34,7 @@
                 <a-menu-item key="9">列表</a-menu-item>
                 <a-menu-item key="10">添加历程</a-menu-item>
             </a-sub-menu>
-            <a-sub-menu key="sub3">
+            <a-sub-menu key="sub4">
                 <span slot="title">
                     <a-icon type="appstore" />
                     <span>个人中心</span>
@@ -43,25 +43,6 @@
                 <a-menu-item key="10">添加账号</a-menu-item>
             </a-sub-menu>
         </a-menu>
-        <!-- <a-menu
-            @click="handleClick"
-            style="width: 150px"
-            :defaultSelectedKeys="['/manage/addArticle']"
-            mode="inline"
-        >
-            <a-menu-item key="/manage/addArticle">
-                <a-icon type="mail" />添加文章
-            </a-menu-item>
-            <a-menu-item key="/manage/article">
-                <a-icon type="calendar" />文章列表
-            </a-menu-item>
-            <a-menu-item key="/manage/comments">
-                <a-icon type="calendar" />评论列表
-            </a-menu-item>
-            <a-menu-item key="/manage/record">
-                <a-icon type="calendar" />访问记录
-            </a-menu-item>
-        </a-menu>-->
         <div class="tips">Design By Chenyonghui</div>
     </div>
 </template>
@@ -71,8 +52,9 @@ export default {
         return {
             current: ["mail"],
             openKeys: ["sub1"],
-            rootSubmenuKeys: ["sub1", "sub2", "sub4"],
-            collapsed: false
+            rootSubmenuKeys: ["sub1", "sub2", "sub3"],
+            collapsed: false,
+            test: "12"
         };
     },
     methods: {
@@ -84,9 +66,20 @@ export default {
             console.log("titleClick", e);
         }
     },
+    //计算属性
+    computed: {
+        collapsedData() {
+            console.log("===>", this.$store.state.collapsed);
+            return this.$store.state.collapsed;
+        }
+    },
     watch: {
         openKeys(val) {
             console.log("openKeys", val);
+        },
+        //监听执行
+        collapsedData: function(newValue, oldValue) {
+            this.collapsed = newValue;
         }
     }
 };
@@ -98,6 +91,7 @@ export default {
     position: relative;
     background: #001529;
     box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+    transition: 0.5s;
 }
 .logo {
     height: 90px;

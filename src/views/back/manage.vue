@@ -1,13 +1,14 @@
 <template>
     <div class="container">
-        <sideNav />
+        <div class="side-nav" :style="collapsed?'width:90px':'width:250px'">
+            <sideNav />
+        </div>
         <div class="router-view">
             <headTop />
             <el-main>
-                <router-view />
+                <router-view style="background:#fff" />
             </el-main>
         </div>
-        <!-- <el-main class="router-view"></el-main> -->
     </div>
 </template>
 <script>
@@ -19,6 +20,23 @@ export default {
     components: {
         sideNav,
         headTop
+    },
+    data() {
+        return {
+            collapsed: false
+        };
+    },
+    computed: {
+        collapsedData() {
+            console.log("===>", this.$store.state.collapsed);
+            return this.$store.state.collapsed;
+        }
+    },
+    watch: {
+        //监听执行
+        collapsedData: function(newValue, oldValue) {
+            this.collapsed = newValue;
+        }
     }
 };
 </script>
@@ -26,7 +44,9 @@ export default {
 .container {
     display: flex;
 }
-
+.side-nav {
+    transition: 0.3s;
+}
 .router-view {
     flex: 1;
     box-sizing: border-box;

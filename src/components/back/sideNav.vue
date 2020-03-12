@@ -1,7 +1,7 @@
 <template>
-    <div class="side-nav" :style="collapsed?'width:90px':'width:250px'">
+    <div class="side-nav">
         <div class="logo">
-            <h1>博客后台{{collapsed}}</h1>
+            <h1>博客后台</h1>
         </div>
         <a-menu
             :defaultSelectedKeys="['1']"
@@ -31,8 +31,7 @@
                     <a-icon type="appstore" />
                     <span>人生历程</span>
                 </span>
-                <a-menu-item key="9">列表</a-menu-item>
-                <a-menu-item key="10">添加历程</a-menu-item>
+                <a-menu-item key="/manage/course">列表</a-menu-item>
             </a-sub-menu>
             <a-sub-menu key="sub4">
                 <span slot="title">
@@ -59,7 +58,6 @@ export default {
     },
     methods: {
         handleClick(e) {
-            console.log("click", e);
             this.$router.push(e.key);
         },
         titleClick(e) {

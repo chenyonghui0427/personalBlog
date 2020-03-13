@@ -84,6 +84,7 @@ export default {
 </script>
 <style scoped>
 .side-nav {
+    width: 250px;
     height: 100vh;
     border-right: 1px #ccc solid;
     position: relative;

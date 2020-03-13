@@ -35,12 +35,9 @@ export default {
         };
     },
     methods: {
-        handleChange(page) {
-            this.loadArticleList(page);
-        },
+        handleChange(page) {},
         loadArticleList(page) {
             this.pages = page;
-            console.log(this.num);
             this.$post("/comment/list", {
                 pages: this.pages,
                 nums: this.num
@@ -48,19 +45,6 @@ export default {
                 if (res.code === 1) {
                     this.articleList = res.list;
                     this.totals = res.totals;
-                }
-            });
-        },
-        tableChange(pagination, filters, sorter) {
-            this.$post("/article/list", {
-                pages: pagination.current,
-                nums: pagination.defaultPageSize
-            }).then(res => {
-                if (res.code === 1) {
-                    this.articleList = res.list;
-                    this.pagination = {
-                        total: res.totals
-                    };
                 }
             });
         },

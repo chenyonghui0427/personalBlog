@@ -1,14 +1,15 @@
 <template>
     <div>
         <el-timeline>
-            <el-timeline-item placement="top" color="green" v-for="item in 5" :key="item">
+            <el-timeline-item placement="top" color="green" v-for="item in list" :key="item">
                 <el-card style="width:100%;">
-                    <h3>Vue 版的网站</h3>
-                    <p>利用业余时间用 vue + typescript + element-ui 做了一个 vue 版的网站，历时差不多 1 个星期，之所以那么做，就是想学一下 typescript ，等 Vue3.0 出来的时候，可以更快的上手，其中踩了不少坑，不过后面都解决了。 对于使用 TypeScript : 一时用一时爽，一直用一直爽</p>
+                    <h3>{{item.title}}</h3>
+                    <p>{{item.content}}</p>
                     <p>
-                        <span>2014-01-24</span>
+                        {{item.time}}
+                        <!-- <span>2014-01-24</span>
                         <span>--</span>
-                        <span>2020-02-15</span>
+                        <span>2020-02-15</span>-->
                     </p>
                 </el-card>
             </el-timeline-item>
@@ -24,6 +25,24 @@ export default {
     name: "home",
     components: {
         item
+    },
+    data() {
+        return {
+            list: []
+        };
+    },
+    methods: {
+        loadArticle(page) {
+            this.pages = page;
+            this.$post("/course/list").then(res => {
+                if (res.code === 1) {
+                    this.list = res.list;
+                }
+            });
+        }
+    },
+    mounted() {
+        this.loadArticle(1);
     }
 };
 </script>

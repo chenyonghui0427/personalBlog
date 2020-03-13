@@ -1,7 +1,7 @@
 /* eslint-disable */
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3002/";
+axios.defaults.baseURL = "http://localhost:3002/";//http://api.chenyonghui.cn/
 axios.defaults.timeout = 500000;
 //请求拦截器
 //请求拦截器,加上token登陆参数

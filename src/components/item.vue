@@ -12,7 +12,7 @@
                         <span>{{item.create_time|dateFormat}}</span>
                     </div>
                 </div>
-                <div class="info-img"></div>
+                <!-- <div class="info-img"></div> -->
             </div>
         </div>
     </div>

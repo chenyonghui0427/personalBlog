@@ -2,23 +2,16 @@
     <el-main>
         <el-button class="add" size="mini" type="primary" @click="addCourse">添加历程</el-button>
         <el-table :data="articleList" border style="width: 100%" size="mini">
-            <el-table-column prop="comment_content" label="评论内容"></el-table-column>
-            <el-table-column prop="comment_people" label="评论人姓名"></el-table-column>
-            <el-table-column prop="comment_date" label="评论时间"></el-table-column>
+            <el-table-column prop="title" label="标题"></el-table-column>
+            <el-table-column prop="content" label="内容"></el-table-column>
+            <el-table-column prop="time" label="时间"></el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button type="primary" size="small">编辑</el-button>
-                    <el-button @click="handleDelete(scope.row)" type="danger" size="small">删除</el-button>
+                    <el-button type="primary" size="mini">编辑</el-button>
+                    <el-button @click="handleDelete(scope.row)" type="danger" size="mini">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
-        <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="totals"
-            :page-size="num"
-            @current-change="handleChange"
-        ></el-pagination>
         <el-dialog :visible.sync="dialogVisible" center>
             <el-form label-width="80px" :model="form" size="mini">
                 <el-form-item label="标题:">
@@ -31,7 +24,7 @@
                     <el-input v-model="form.time" placeholder="请输入历程时间"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary">保存</el-button>
+                    <el-button type="primary" @click="handleAdd">保存</el-button>
                     <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
@@ -41,7 +34,7 @@
 <script>
 export default {
     mounted() {
-        this.loadArticleList(1);
+        this.loadCourseList();
     },
     data() {
         return {
@@ -58,19 +51,22 @@ export default {
         addCourse() {
             this.dialogVisible = true;
         },
-        handleChange(page) {
-            this.loadArticleList(page);
-        },
-        loadArticleList(page) {
-            this.pages = page;
-            console.log(this.num);
-            this.$post("/comment/list", {
-                pages: this.pages,
-                nums: this.num
-            }).then(res => {
+        loadCourseList() {
+            this.$post("/course/list").then(res => {
                 if (res.code === 1) {
                     this.articleList = res.list;
                     this.totals = res.totals;
+                }
+            });
+        },
+        handleAdd() {
+            this.$post("/course/addCourse", this.form).then(res => {
+                if (res.code === 1) {
+                    this.dialogVisible = false;
+                    this.$message.success(res.msg);
+                    this.loadCourseList();
+                } else {
+                    this.$message.error(res.msg);
                 }
             });
         },
@@ -89,11 +85,11 @@ export default {
         },
         handleDelete(item) {
             console.log(item);
-            this.$post("/c/delete_article", {
-                id: item.article_id
+            this.$post("/course/delete", {
+                id: item.course_id
             }).then(res => {
                 if (res.code === 1) {
-                    this.loadArticleList(1);
+                    this.loadCourseList(1);
                 }
             });
         }

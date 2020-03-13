@@ -6,13 +6,13 @@
                 <div class="label">
                     <img src="../../assets/user-login.png" alt />
                 </div>
-                <input type="text" placeholder="请输入账号" />
+                <input v-model="loginForm.username" type="text" placeholder="请输入账号" />
             </div>
             <div class="input">
                 <div class="label">
                     <img src="../../assets/password-login.png" alt />
                 </div>
-                <input type="password" placeholder="请输入密码" />
+                <input v-model="loginForm.password" type="password" placeholder="请输入密码" />
             </div>
             <!-- <div class="submit"> -->
             <button class="submit" @click="login">登陆</button>
@@ -32,8 +32,14 @@ export default {
     },
     methods: {
         login() {
-            this.$router.push("/manage/addArticle");
-            
+            this.$post("/login/login", this.loginForm).then(res => {
+                if (res.code === 1) {
+                    this.$message.success(res.msg);
+                    this.$router.push("/manage/addArticle");
+                } else {
+                    this.$message.error(res.msg);
+                }
+            });
         }
     },
     mounted() {}

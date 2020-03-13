@@ -1,10 +1,11 @@
 <template>
     <div class="container">
-        <div class="side-nav" :style="collapsed?'width:90px':'width:250px'">
+        <div >
             <sideNav />
         </div>
         <div class="router-view">
             <headTop />
+            {{collapsed}}
             <el-main>
                 <router-view style="background:#fff" />
             </el-main>

@@ -50,7 +50,7 @@ export default {
         },
         handleDelete(item) {
             console.log(item);
-            this.$post("/c/delete_article", {
+            this.$post("/comment/delete_comment", {
                 id: item.article_id
             }).then(res => {
                 if (res.code === 1) {
